@@ -9,12 +9,13 @@ export class UI {
     fpsGraph: any;
 
     PARAMS = {
-        rows: 50,
+        rows: 75,
         length: 1,
         width: 1,
         height: 1,
-        degree: 360,
-        rotation: 360,
+        degree: 180,
+        rotation: 180,
+        stand_rotation: 0,
     };
 
     private static instance: UI;
@@ -35,31 +36,46 @@ export class UI {
         const tree = this.pane.addFolder({
             title: 'tree',
             expanded: true,
-          });
+        });
 
         tree.addInput(this.PARAMS, 'rows', {
-            min: 0,
-            max: 100,
-        });
-        tree.addInput(this.PARAMS, 'length', {
-            min: 0,
-            max: 10,
-        });
-        tree.addInput(this.PARAMS, 'width', {
-            min: 0,
-            max: 10,
-        });
-        tree.addInput(this.PARAMS, 'height', {
-            min: 0,
-            max: 10,
+            step: 1,
+            min: 1,
+            max: 200,
         });
         tree.addInput(this.PARAMS, 'degree', {
             min: 1,
-            max: 360,
+            max: 180,
         });
         tree.addInput(this.PARAMS, 'rotation', {
             min: 1,
-            max: 360,
+            max: 180,
+        });
+
+        const boards = this.pane.addFolder({
+            title: 'boards',
+            expanded: true,
+        });
+        boards.addInput(this.PARAMS, 'length', {
+            min: 0,
+            max: 10,
+        });
+        boards.addInput(this.PARAMS, 'width', {
+            min: 0,
+            max: 10,
+        });
+        boards.addInput(this.PARAMS, 'height', {
+            min: 0,
+            max: 10,
+        });
+
+        const stand = this.pane.addFolder({
+            title: 'stand',
+            expanded: true,
+        });
+        stand.addInput(this.PARAMS, 'stand_rotation', {
+            min: 0,
+            max: 120,
         });
     }
 
