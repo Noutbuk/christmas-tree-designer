@@ -2,7 +2,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
 	publicDir: "src/assets",
-	base: "/three-base/",
+	base: "",
 
 	server: {
 		open: true,
