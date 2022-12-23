@@ -70,10 +70,20 @@ export class Scene {
         this.standC = new three.Mesh(standCgeometry, standCmaterial);
         this.scene.add(this.standC);
 
+        const loader = new three.TextureLoader();
+        const t = loader.load('./240px-Balsa_Wood_Texture.jpg');
+
+        t.wrapS = three.RepeatWrapping;
+        t.wrapT = three.RepeatWrapping;
+
+        const material = new three.MeshBasicMaterial({
+          map: t,
+        });
+        
         for (var i = 0; i < this.maxRows; i++) {
             const length = 1
             const geometry = new three.BoxGeometry(length, rowHeight, width);
-            const material = new three.MeshNormalMaterial();
+            //const material = new three.MeshNormalMaterial();
             const plankMesh = new three.Mesh(geometry, material);
             plankMesh.position.set(0, i * rowHeight, 0);
             this.planks.push({ index: i, mesh: plankMesh });
