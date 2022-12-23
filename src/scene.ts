@@ -24,7 +24,7 @@ export class Scene {
 
     minLength = 0.5;
     maxLength = 20;
-    rows = 75;
+    rows = 50;
     maxRows = 200;
     pipeBase = 0.1;
 
@@ -42,7 +42,7 @@ export class Scene {
 
 
         const width = 1;
-        const rowHeight = 1; //= 0.5;
+        const rowHeight = 1;
         const pipeWidth = 0.3;
 
         this.ui.PARAMS.rows = this.rows;
@@ -72,10 +72,6 @@ export class Scene {
 
         const loader = new three.TextureLoader();
         const t = loader.load('./240px-Balsa_Wood_Texture.jpg');
-
-        t.wrapS = three.RepeatWrapping;
-        t.wrapT = three.RepeatWrapping;
-
         const material = new three.MeshBasicMaterial({
           map: t,
         });
@@ -108,7 +104,6 @@ export class Scene {
             .forEach(p => p.mesh.visible = false);
 
         this.pipe.position.set(0, (this.ui.PARAMS.rows - (this.pipeBase * this.ui.PARAMS.rows)) / 2, 0);
-        //this.pipe.position.set(0, (this.ui.PARAMS.rows * this.ui.PARAMS.height - this.ui.PARAMS.height - (this.pipeBase * this.ui.PARAMS.rows * this.ui.PARAMS.height)) / 2, 0);
         this.pipe.scale.y = this.ui.PARAMS.rows * 1 * (1 + this.pipeBase);
 
         // this.ui.PARAMS.stand_rotation
@@ -118,7 +113,6 @@ export class Scene {
         this.standB.rotation.y = (2 + (this.ui.PARAMS.stand_rotation * (1 / 120))) * Math.PI * (2 / 3);
         this.standC.position.set(3.5 * Math.cos((3 + (this.ui.PARAMS.stand_rotation * (1 / 120))) * Math.PI * (2 / 3)), -1 * this.pipeBase * this.ui.PARAMS.rows, -3.5 * Math.sin((3 + (this.ui.PARAMS.stand_rotation * (1 / 120))) * Math.PI * (2 / 3)));
         this.standC.rotation.y = (3 + (this.ui.PARAMS.stand_rotation * (1 / 120))) * Math.PI * (2 / 3);
-        // this.standC.visible = false;
 
         // update plank position / scale / rotation
         this.planks.forEach(p => p.mesh.scale.x = this.ui.PARAMS.length * (this.maxLength - (((this.maxLength - this.minLength) / this.ui.PARAMS.rows) * p.index)))

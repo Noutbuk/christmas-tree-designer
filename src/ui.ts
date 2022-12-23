@@ -9,7 +9,7 @@ export class UI {
     fpsGraph: any;
 
     PARAMS = {
-        rows: 75,
+        rows: 50,
         length: 1,
         width: 1,
         height: 1,
