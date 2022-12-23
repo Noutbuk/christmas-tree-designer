@@ -3,7 +3,7 @@ import * as three from 'three'
 import { mainCamera } from './camera'
 import { UI } from './ui';
 
-import { UnlitCubes } from './unlit_cubes';
+import { Plank } from './types';
 
 export class Scene {
     /* base scene elements */
@@ -14,7 +14,7 @@ export class Scene {
     camera: mainCamera;
     ui: UI;
 
-    cubes: three.Mesh[] = [];
+    planks: Plank[] = [];
 
     private static instance: Scene;
 
@@ -61,12 +61,12 @@ export class Scene {
             const length = maxLength - (((maxLength - minLength) / this.ui.PARAMS.rows) * i)
             const geometry = new three.BoxGeometry(length, rowHeight, width);
             const material = new three.MeshNormalMaterial();
-            const cube = new three.Mesh(geometry, material);
-            cube.position.set(0, i * rowHeight, 0);
-            //cube.rotateY(algo(i));
-            this.cubes.push({ index: i, cube: cube });
+            const plankMesh = new three.Mesh(geometry, material);
+            plankMesh.position.set(0, i * rowHeight, 0);
+            //plankMesh.rotateY(algo(i));
+            this.planks.push({ index: i, mesh: plankMesh });
             // if (i == 0 || i == rows - 1) {
-            this.scene.add(cube);
+            this.scene.add(plankMesh);
             // }
         }
     }
@@ -76,10 +76,10 @@ export class Scene {
 
         // update camera if scene resized
         this.camera.ResizeCam(this.canvas, this.renderer);
-        this.cubes.forEach(c => c.cube.scale.x = this.ui.PARAMS.length)
-        this.cubes.forEach(c => c.cube.scale.z = this.ui.PARAMS.width)
-        this.cubes.forEach(c => c.cube.scale.y = this.ui.PARAMS.height)
-        this.cubes.forEach(c => c.cube.rotation.y = c.index * (Math.PI / (180 / this.ui.PARAMS.degree)) + Math.round(c.index / (180 / this.ui.PARAMS.degree) - 0.5) * (Math.PI / (180 / this.ui.PARAMS.rotation)));
+        this.planks.forEach(c => c.mesh.scale.x = this.ui.PARAMS.length)
+        this.planks.forEach(c => c.mesh.scale.z = this.ui.PARAMS.width)
+        this.planks.forEach(c => c.mesh.scale.y = this.ui.PARAMS.height)
+        this.planks.forEach(c => c.mesh.rotation.y = c.index * (Math.PI / (180 / this.ui.PARAMS.degree)) + Math.round(c.index / (180 / this.ui.PARAMS.degree) - 0.5) * (Math.PI / (180 / this.ui.PARAMS.rotation)));
 
         this.renderer.render(this.scene, this.camera.mainCam);
 
