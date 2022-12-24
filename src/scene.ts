@@ -50,6 +50,13 @@ export class Scene {
         this.camera.controls.target.set(0, (this.ui.PARAMS.rows * rowHeight) / 2, 0);
         this.camera.controls.update();
 
+        const pointLight = new three.PointLight(0xffeeee, 1);
+        pointLight.position.set(100, 200, 100);
+        this.scene.add(pointLight);
+
+        const ambientLight = new three.AmbientLight(0xffeeee, 0.3);
+        this.scene.add(ambientLight);
+
         const pipeGeometry = new three.BoxGeometry(pipeWidth, 1, pipeWidth);
         const pipeMaterial = new three.MeshNormalMaterial();
         this.pipe = new three.Mesh(pipeGeometry, pipeMaterial);
@@ -72,7 +79,7 @@ export class Scene {
 
         const loader = new three.TextureLoader();
         const t = loader.load('./240px-Balsa_Wood_Texture.jpg');
-        const material = new three.MeshBasicMaterial({
+        const material = new three.MeshPhongMaterial({
           map: t,
         });
         
